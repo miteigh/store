@@ -43,13 +43,13 @@ session_start();
         // }
         ?>
         <div class="row mb-4 d-flex justify-content-center">
-            <div class="col-xl-10 col-lg-10 mb-3">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 mb-3">
                 <div class="card">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">ระบบลงทะเบียน</h6>
                     </div>
-                    <div class="card-body d-flex justify-content-around">
-                        <div class="">
+                    <div class="card-body row d-flex justify-content-around">
+                        <div class="col-xl-4 d-flex justify-content-center">
                             <form method="post" action="redb.php"> <!-- action="register.php" -->
                                 <?php if (isset($_SESSION['error'])) { ?>
                                     <div class="alert alert-danger alcenter" role="alert">
@@ -114,13 +114,14 @@ session_start();
                                                 <select class="form-select" name="major" id="slemajor" required>
                                                     <option value="" selected disabled>เลือกสาขาวิชา...</option>
                                                     <?php
-                                                    $stmt = $conn->query("SELECT * FROM tb_major");
+                                                    $stmt = $conn->query("SELECT * FROM tb_major WHERE mstatus = 1");
                                                     $stmt->execute();
 
                                                     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
                                                     ?>
                                                         <option value="<?php echo $row['mid'] ?>"><?php echo $row['mname']; ?></option>
-                                                    <?php }
+                                                    <?php 
+                                                        }
                                                     ?>
                                                     <?php
                                                     // $sqlcar = "SELECT * FROM tb_major";
@@ -146,7 +147,7 @@ session_start();
                                 </div>
                             </form>
                         </div>
-                        <div class="">
+                        <div class="col-xl-4 col-lg-4 col-sm-4 d-flex justify-content-center">
                             <form method="post" action="redb.php"> <!-- action="register.php" -->
                                 <?php if (isset($_SESSION['error_addmajor'])) { ?>
                                     <div class="alert alert-danger alcenter" role="alert">
@@ -227,10 +228,34 @@ session_start();
 
                 </div>
             </div>
-            <div class="col-xl-10 col-lg-10">
+            <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 ">
                 <div class="card">
                     <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                         <h6 class="m-0 font-weight-bold text-primary">ระบบลงทะเบียน</h6>
+                        <?php if (isset($_SESSION['error_update'])) { ?>
+                            <div class="alert alert-danger alcenter" role="alert">
+                                <?php
+                                echo $_SESSION['error_update'];
+                                unset($_SESSION['error_update']);
+                                ?>
+                            </div>
+                        <?php } ?>
+                        <?php if (isset($_SESSION['success_update'])) { ?>
+                            <div class="alert alert-success alcenter" role="alert">
+                                <?php
+                                echo $_SESSION['success_update'];
+                                unset($_SESSION['success_update']);
+                                ?>
+                            </div>
+                        <?php } ?>
+                        <?php if (isset($_SESSION['warning_update'])) { ?>
+                            <div class="alert alert-warning alcenter" role="alert">
+                                <?php
+                                echo $_SESSION['warning_update'];
+                                unset($_SESSION['warning_update']);
+                                ?>
+                            </div>
+                        <?php } ?>
                         <div>
                             <div class="input-group-append">
                                 <button type="button" class="btn btn-danger ml-1" id="bulkDeleteButton">
@@ -356,7 +381,7 @@ session_start();
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">ยกเลิก</button>
-                                                <button type="sbmit" class="btn btn-primary" name="savechanges">บันทึกการเปลี่ยนแปลง</button>
+                                                <button type="submit" class="btn btn-primary" name="update">บันทึกการเปลี่ยนแปลง</button>
                                             </div>
                                         </form>
                                     </div>
