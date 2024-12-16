@@ -127,7 +127,7 @@
     
                 if ($major) {
                     $_SESSION['warning_addmajor'] = "มีสาขาวิชานี้อยู่ในระบบแล้ว";
-                    header("location: jan.php");
+                    header("location: jan1.php");
                     exit();
                 } else {
                     // เพิ่มข้อมูลสาขาวิชา
@@ -140,7 +140,7 @@
                     $stmt2->execute();
     
                     $_SESSION['success_addmajor'] = "เพิ่มข้อมูลสาขาวิชาเรียบร้อยแล้ว!";
-                    header("location: jan.php");
+                    header("location: jan1.php");
                     exit();
                 }
     
@@ -148,7 +148,7 @@
                 $_SESSION['error_addmajor'] = 'มีบางอย่างผิดพลาด: ' . $e->getMessage();
             }
         }
-        header("location: jan.php");
+        header("location: jan1.php");
         exit();
     }    
     
